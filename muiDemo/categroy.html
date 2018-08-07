@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>如此生活|分类</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!-- <link rel="stylesheet" type="text/css" href="/public/ext/css/soo.m.ui.css"/> -->
+			<!-- <link rel="stylesheet" type="text/css" href="/public/css/mindex/new_index.css"/> -->
+		<link rel="stylesheet" type="text/css" href="/public/css/mcate/cate.css"/>
+		<script src="/public/js/rem.js"></script>
+	</head>
+	<body>
+		<div class="header">
+			<!-- <a href="" class="back-btn"></a> -->
+			<a href="./search.html" class="search-box">
+				<span class="search-icon"></span>
+				<span><?php echo !empty($word_hot) ? $word_hot:''; ?></span>
+			</a>
+		</div>
+
+		<div class="cate-box">
+			<ul class="cate-menu">
+				<!-- <li class="active">推荐分类</li> -->
+				{%  if category_one  %}
+					{% for k,v in category_one %}
+						<li c_id="{{v['id']}}" {{ k==0 ? "class='active'" : '' }}>{{v['name']}}</li>
+					{% endfor %}
+				{% endif %}
+			</ul>
+
+			<div class="cate-content">
+
+				{%  if category_one  %}
+					{% for k,v in category_one %}
+						<!-- <li c_id="{{v['id']}}" {{ k==0 ? "class='active'" : '' }}>{{v['name']}}</li> -->
+						{%  if category_two[v['id']]  %}
+						<div class="cate-item">
+							<!-- <a href="" class="cate-banner"> -->
+								
+								{%  if category_two[v['id']]['banner']  %}
+									<?php if (!empty($category_two[$v['id']]['banner']['banner_url'])) {   ?>
+											<a href="{{category_two[v['id']]['banner']['banner_url']}}"><img src="{{category_two[v['id']]['banner']['banner_logo']}}" alt="" class="cate-banner"></a>
+									<?php }else{ ?>
+										<img src="{{category_two[v['id']]['banner']['banner_logo']}}" alt="" class="cate-banner">
+									<?php } ?>
+								{% endif %}
+							<!-- </a> -->
+							<ul class="cate-item-list">
+								
+								{%  if category_two[v['id']]['secondMenu']  %}
+									{% for key,val in category_two[v['id']]['secondMenu'] %}
+									<a href="/newcategory/threecate.html?twocode={{val['id']}}">
+										
+									<li>
+										<img class="cate-img" src="{{val['logo']}}" alt="">
+										<p class="cate-name" c_id="{{val['id']}}" >{{val['name']}}</p>
+									</li>
+									</a>
+									{% endfor %}
+								{% endif %}
+							</ul>
+						</div>
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+				
+			</div>
+		</div>
+
+	<div class="addmenu" url="{{url_order}}"  style="width: 100%;overflow-x: hidden">
+	<input type="hidden" value="{{num}}" id="num">
+
+	<script  type="text/javascript" src="/public/ext/js/jquery-1.8.3.min.js"></script>
+	<script  type="text/javascript" src="/public/js/jquery.base64.js"></script>
+	<script type="text/javascript" src="/public/js/mindex/menu.js"></script>
+
+	<script>
+		$('.cate-menu li').unbind('click').click(function(){
+			$(this).addClass('active').siblings('li').removeClass('active');
+			$(this).parent('.cate-menu').siblings('.cate-content').find('.cate-item').eq($(this).index()).show().siblings('.cate-item').hide();
+		});
+
+	</script>
+
+	</body>
+</html>
+
