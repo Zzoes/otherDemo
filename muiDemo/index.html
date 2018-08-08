@@ -76,6 +76,34 @@
 							<img src="http://temp.im/82x82/#f8f8f8" alt="">
 						</div>
 					</div>
+					
+					<div class="img-box">
+		
+						<div class="img-item l">
+							<div class="state-box">
+								<h4 class="state-tit" data-state="1">等待开始</h4><!--1、等待开始/2、抢购中/3、已结束-->
+								<div class="count-down-box">
+									
+									<p class="count-down-txt">
+										<span class="ip5-hide">距开始:</span><!--距开始:/距结束:/空-->
+										<span class="red-bg-txt day" data-date="2018-08-20 16:20:00"><b>2</b>天</span>
+										<span class="red-bg-txt h">12</span> :
+										<span class="red-bg-txt m">20</span> :
+										<span class="red-bg-txt s">50</span>
+									</p>
+								</div>
+								<img src="http://temp.im/82x130/#f8f8f8" alt="">			
+							</div>
+						</div>
+				
+						<div class="img-item m">
+							<img src="http://temp.im/82x141/#f8f8f8" alt="">
+						</div>
+				
+						<div class="img-item m">
+							<img src="http://temp.im/82x141/#f8f8f8" alt="">
+						</div>
+					</div>
 
 					<div class="scroll-box">
 						<div class="slide-box">
@@ -168,128 +196,9 @@
 			<img src="images/up@2x.png">
 		</div>
 
-
 		<script src="js/jquery-1.8.3.min.js"></script>
 		<script type="text/javascript" src="js/swiper-3.4.2.min.js"></script>
 		<script src="js/mui.min.js"></script>
-
-		<script>
-			$(function(){
-				
-				// 上下拉
-				mui('body').on('tap','a',function(){document.location.href=this.href;});
-				mui.init({
-					pullRefresh : {
-						container:'#pullrefresh',//待刷新区域标识，querySelector能定位的css选择器均可，比如：id、.class等
-						down : {
-							auto: false,
-							callback :pullfreshDown
-						},				
-						up : {
-							auto:false,
-							contentrefresh : "正在加载...",
-							contentnomore:'没有更多数据了',
-							callback :pullfreshUp 
-						}
-					}
-				});
-
-
-				function pullfreshDown(){//下拉刷新
-					console.log('down');
-					console.log('up');
-					
-					var data = {
-					};
-					downList();
-					ajaxQuery('','post','json',data,downList);
-				};
-
-				function pullfreshUp(){//上拉加载
-					console.log('up');
-					
-					var data = {
-					};
-					upList();
-					ajaxQuery('','post','json',data,upList);
-				};
-				
-				function downList(res){
-					console.log('goolist');
-					setTimeout(() => {
-						mui("#pullrefresh").pullRefresh().endPulldownToRefresh(false);
-					}, 1000);
-					// if(res.msg.goods.length >0){
-					// 	mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
-					// }else{
-					// 	mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
-					// }
-				};
-				function upList(res){
-					console.log('goolist');
-					setTimeout(() => {
-						mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
-					}, 1000);
-					
-					// if(res.msg.goods.length >0){
-					// 	mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
-					// }else{
-					// 	mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
-					// }
-				};
-				
-				//横向滚动
-				$('.scroll-box').each(function(index,ele){
-					var slideItem = $(ele).find('.slide-item');
-					var slideBox = slideItem.closest('.slide-box');
-					var slideItemLen = slideItem.length;
-					slideBox.width(slideItemLen * slideItem.width() + 8*(slideItemLen - 1));
-				});
-				
-				mui('.scroll-box').scroll({
-					scrollY: false, //是否竖向滚动
-					scrollX: true, //是否横向滚动
-					deceleration:0.0006, //阻尼系数,系数越小滑动越灵敏
-					bounce: true //是否启用回弹
-				});
-				
-				//回到顶部
-				mui('.go-top').on('tap','img',function(){
-					mui('.mui-scroll-wrapper').scroll().scrollTo(0,0,1000);
-				});
-
-				//轮播图
-				var mySwiper = new Swiper('.swiper-container', {
-					autoplay: 5000,//可选选项，自动滑动
-					pagination : '.swiper-pagination',
-					width : window.innerWidth,
-					loop : true,
-					autoplayDisableOnInteraction : false
-				});
-			});
-
-			//ajax请求列表
-			function ajaxQuery(url,type,dataType,data,successFn){
-				$.ajax({
-					url: url,
-					type: type,
-					// contentType: "application/x-www-form-urlencoded",
-					dataType: dataType,
-					data: data,
-					success: function (res) {
-						successFn(res);
-					}
-				})
-			}
-
-			//获取地址栏参数
-			function GetQueryString(name) {
-				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-				var r = window.location.search.substr(1).match(reg);
-				if (r != null)return unescape(r[2]);
-				return null;
-			};
-			
-		</script>
+		<script src="js/index.js"></script>
 	</body>
 </html>
